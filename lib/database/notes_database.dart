@@ -28,7 +28,7 @@ class NotesDatabase {
         title TEXT NOT NULL,
         description TEXT NOT NULL,
         date TEXT NOT NULL,
-        color INTEGER NOT NULL,
+        color INTEGER NOT NULL
       )
     ''');
   }

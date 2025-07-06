@@ -13,11 +13,23 @@ class NoteApp extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      
       title: 'Note App',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
       ),
-      home: notesScreen()
+      
+      home: Scaffold(
+        appBar: AppBar(
+          // title: const Text('NotesApp'),
+          centerTitle: true,
+          // backgroundColor: Colors.black54,
+          elevation: 10,
+        ),
+        body: const NotesScreen(),
+      ),
     );
+  
   }
 }

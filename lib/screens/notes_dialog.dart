@@ -7,7 +7,13 @@ class NotesDialog extends StatefulWidget {
   final String? content;
   final int colorIndex;
   final List<Color> notesColors;
-  final Function onNoteSaved;
+
+  final Future<void> Function({
+    required int colorIndex,
+    required String title,
+    required String content,
+    int? noteId,
+  }) onNoteSaved;
 
   const NotesDialog({
     super.key,
@@ -34,19 +40,16 @@ class _NotesDialogState extends State<NotesDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController titleController = TextEditingController(
-      text: widget.title,
-    );
-    final TextEditingController descriptionController = TextEditingController(
-      text: widget.content,
-    );
+    final titleController = TextEditingController(text: widget.title);
+    final descriptionController = TextEditingController(text: widget.content);
     final currentDate = DateFormat('E d MMM').format(DateTime.now());
+
     return AlertDialog(
       backgroundColor: widget.notesColors[_selectedColorIndex],
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       title: Text(
         widget.noteId == null ? 'Create Note' : 'Edit Note',
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 24,
           fontWeight: FontWeight.bold,
           color: Colors.black87,
@@ -57,12 +60,8 @@ class _NotesDialogState extends State<NotesDialog> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              currentDate,
-              style: TextStyle(fontSize: 14, color: Colors.black54),
-            ),
-            SizedBox(height: 10),
-
+            Text(currentDate, style: const TextStyle(fontSize: 14, color: Colors.black54)),
+            const SizedBox(height: 10),
             TextField(
               controller: titleController,
               decoration: InputDecoration(
@@ -75,7 +74,7 @@ class _NotesDialogState extends State<NotesDialog> {
                 ),
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             TextField(
               controller: descriptionController,
               maxLines: 5,
@@ -90,11 +89,9 @@ class _NotesDialogState extends State<NotesDialog> {
                 ),
               ),
             ),
-            SizedBox(height: 10),
-
+            const SizedBox(height: 10),
             Wrap(
               spacing: 8.0,
-              // runSpacing: 8.0,
               children: List.generate(widget.notesColors.length, (index) {
                 return GestureDetector(
                   onTap: () {
@@ -105,10 +102,9 @@ class _NotesDialogState extends State<NotesDialog> {
                   child: CircleAvatar(
                     radius: 20,
                     backgroundColor: widget.notesColors[index],
-                    child:
-                        _selectedColorIndex == index
-                            ? Icon(Icons.check, color: Colors.black54, size: 20)
-                            : null,
+                    child: _selectedColorIndex == index
+                        ? const Icon(Icons.check, color: Colors.black54, size: 20)
+                        : null,
                   ),
                 );
               }),
@@ -118,36 +114,24 @@ class _NotesDialogState extends State<NotesDialog> {
       ),
       actions: [
         TextButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          child: Text(
-            'Cancel',
-            style: TextStyle(color: Colors.black54, fontSize: 16),
-          ),
+          onPressed: () => Navigator.of(context).pop(),
+          child: const Text('Cancel', style: TextStyle(color: Colors.black54, fontSize: 16)),
         ),
         ElevatedButton(
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.black87,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           ),
           onPressed: () async {
-            final newTitle = titleController.text;
-            final newDescription = descriptionController.text;
-            widget.onNoteSaved(
+            await widget.onNoteSaved(
               noteId: widget.noteId,
-              title: newTitle,
-              content: newDescription,
+              title: titleController.text,
+              content: descriptionController.text,
               colorIndex: _selectedColorIndex,
             );
             Navigator.of(context).pop();
           },
-          child: Text(
-            widget.noteId == null ? 'Save' : 'Update',
-            style: TextStyle(fontSize: 16),
-          ),
+          child: Text(widget.noteId == null ? 'Save' : 'Update', style: const TextStyle(fontSize: 16)),
         ),
       ],
     );
