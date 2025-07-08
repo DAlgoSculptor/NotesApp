@@ -1,16 +1,36 @@
-# notetaking_app
+# 📝 notetaking_app
 
-A new Flutter project.
+![App Logo](assets/Logo.jpg)
 
-## Getting Started
+A modern, user-friendly **Flutter Note-Taking App** to help you organize your thoughts, tasks, and ideas on the go.
 
-This project is a starting point for a Flutter application.
+---
 
-A few resources to get you started if this is your first Flutter project:
+## 🚀 Features
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- ✍️ Create, edit, and delete notes
+- 📌 Pin important notes
+- 🌙 Light and Dark theme support
+- 🗂️ Organize notes with categories/tags
+- 🔍 Fast search functionality
+- 💾 Local data persistence using SQLite or Hive
+- 📱 Responsive UI for all screen sizes
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+---
+
+## 📸 Screenshots
+
+| Home Screen | Note Editor | Dark Mode |
+|-------------|-------------|-----------|
+| ![Home](assets/screenshots/home.png) | ![Editor](assets/screenshots/editor.png) | ![Dark](assets/screenshots/dark.png) |
+
+> 📁 Ensure these screenshots are placed in `assets/screenshots/`.
+
+---
+
+## 🛠️ Installation
+
+1. **Clone the repo**
+   ```bash
+   git clone https://github.com/yourusername/notetaking_app.git
+   cd notetaking_app
